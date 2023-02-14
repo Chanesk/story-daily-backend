@@ -1,5 +1,5 @@
 const User = require('../models/user');
-// const bcrypt = require('bcrypt');
+const bcrypt = require('bcrypt');
 
 exports.signup = (req, res, next)=>{
     bcrypt.hash(req.body.password, 10)
@@ -11,11 +11,7 @@ exports.signup = (req, res, next)=>{
         });
         user.save()
             .then((user) => res.status(201).json({message: "uttilisateur créé !"}))
-            .catch(error => res.status(500).json({error}));
+            .catch(error => res.status(500).json({error: error.message}));
     })
-    .catch(error => res.status(500).json({error}))
+    .catch(error => res.status(500).json({error: error.message}))
 }
-
-// exports.login= (req, res, next)=>{
-
-// }
